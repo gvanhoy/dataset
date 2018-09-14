@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<block>
+  <name>M-CPFSK</name>
+  <key>classify_cpfsk_bc</key>
+  <category>[classify]</category>
+  <import>import classify</import>
+  <make>classify.cpfsk_bc($k, $ampl, $samples_per_sym, $bits_per_symbol)</make>
+  <param>
+    <name>K</name>
+    <key>k</key>
+    <value>.1</value>
+    <type>real</type>
+  </param>
+  <param>
+    <name>Amplitude</name>
+    <key>ampl</key>
+    <value>1</value>
+    <type>real</type>
+  </param>
+  <param>
+    <name>Samples/Symbol</name>
+    <key>samples_per_sym</key>
+    <value>2</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Bits Per Symbol</name>
+    <key>bits_per_symbol</key>
+    <value>1</value>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+</block>
