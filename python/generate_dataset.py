@@ -124,14 +124,12 @@ def get_dataset(dataset_string):
             'ook': tx_ook(),
             'bpsk': tx_bpsk(),
             '4pam': tx_4pam(),
+            '8qam_circular': tx_8qam_circular(),
             '16qam': tx_16qam(),
-            '16psk': tx_16psk(),
-            '64qam': tx_64qam(),
-            'ofdm-16-bpsk': tx_ofdm_16_bpsk(),
+            'ofdm-32-bpsk': tx_ofdm_16_bpsk(),
             '2gfsk': tx_2gfsk(),
             '2cpfsk': tx_2cpfsk(),
             'am-dsb': tx_am_dsb(),
-            'am-ssb': tx_am_ssb(),
             'wbfm': tx_wbfm()
         }
     elif dataset_string == "ofdm":
