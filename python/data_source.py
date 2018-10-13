@@ -416,7 +416,7 @@ class tx_am_ssb(analog_source):
 All radar transmitters
 '''
 class radar_source(gr.hier_block2):
-    def __init__(self, mod_name="", chirp_len=1024):
+    def __init__(self, mod_name="", chirp_len=64):
         gr.hier_block2.__init__(
             self, mod_name,
             gr.io_signature(0, 0, 0),
@@ -428,7 +428,7 @@ class radar_source(gr.hier_block2):
 
 class tx_lfm_triangle(radar_source):
     def __init__(self):
-        radar_source.__init__(self, mod_name="fmcw-triangle", chirp_len=1024)
+        radar_source.__init__(self, mod_name="fmcw-triangle", chirp_len=64)
         self.source = blocks.vector_source_f(
             np.linspace(-.5, .5, self.chirp_len),
             True
