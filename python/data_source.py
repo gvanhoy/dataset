@@ -416,26 +416,34 @@ class tx_am_ssb(analog_source):
 All radar transmitters
 '''
 class radar_source(gr.hier_block2):
-    def __init__(self, mod_name="", samps_per_sym=8):
+    def __init__(self, mod_name="", chirp_len=1024):
         gr.hier_block2.__init__(
             self, mod_name,
             gr.io_signature(0, 0, 0),
             gr.io_signature(1, 1, gr.sizeof_gr_complex)
         )
-        self.vco = blocks.vco_c(1.0, 1.0/samps_per_sym, 1)
+        self.chirp_len = chirp_len
+        self.fm = analog.frequency_modulator_fc(np.pi)
 
 
-class tx_lfm_squarewave(radar_source):
+class tx_lfm_triangle(radar_source):
     def __init__(self):
-        radar_source.__init__(self, mod_name="fmcw-square", samps_per_sym=8)
-        self.square = \
-            analog.sig_source_f(1.0, analog.GR_COS_WAVE, 1.0/10, 1, 0)
-        self.connect(self.square, self.vco, self)
+        radar_source.__init__(self, mod_name="fmcw-triangle", chirp_len=1024)
+        self.source = blocks.vector_source_f(
+            np.linspace(-.5, .5, self.chirp_len),
+            True
+        )
+        self.connect(self.source, self.fm, self)
 
 
 class tx_lfm_sawtooth(radar_source):
     def __init__(self):
-        radar_source.__init__(self, mod_name="fmcw-sawtooth", samps_per_sym=8)
-        self.saw = \
-            analog.sig_source_f(1.0, analog.GR_COS_WAVE, 1.0/10, 2, 1)
-        self.connect(self.saw, self.vco, self)
+        radar_source.__init__(self, mod_name="fmcw-sawtooth", chirp_len=1024)
+        self.source = blocks.vector_source_f(
+            np.concat(
+                np.linspace(-.5, .5, self.chirp_len/2),
+                np.linspace(.5, -.5, self.chirp_len/2)
+            ),
+            True
+        )
+        self.connect(self.source, self.fm, self)

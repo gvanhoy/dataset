@@ -117,7 +117,7 @@ def get_dataset(dataset_string):
             'am-ssb': tx_am_ssb(),
             'wbfm': tx_wbfm(),
             'lfm_sawtooth': tx_lfm_sawtooth(),
-            'lfm_squarewave': tx_lfm_squarewave()
+            'lfm_triangle': tx_lfm_triangle()
         }
     elif dataset_string == "small":
         return {
@@ -171,7 +171,7 @@ def get_dataset(dataset_string):
             'am-ssb': tx_am_ssb(),
             'wbfm': tx_wbfm(),
             'lfm_sawtooth': tx_lfm_sawtooth(),
-            'lfm_squarewave': tx_lfm_squarewave()
+            'lfm_triangle': tx_lfm_triangle()
         }
 
 
@@ -180,7 +180,7 @@ def get_hierarchy():
         'analog': {
             'radar': {
                 'lfm_sawtooth': tx_lfm_sawtooth(),
-                'lfm_squarewave': tx_lfm_squarewave()
+                'lfm_triangle': tx_lfm_triangle()
             },
             'data-bearing': {
                 'wbfm': tx_wbfm(),

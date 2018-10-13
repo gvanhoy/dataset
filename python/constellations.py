@@ -297,8 +297,8 @@ def constellation_64qam():
         6, 14, 30, 22, 54, 62, 46, 39,
         2, 10, 26, 18, 50, 58, 42, 34,
         3, 11, 27, 19, 51, 59, 43, 35,
-        1, 9, 25, 17, 49, 57, 41, 33,
-        0, 8, 24, 16, 48, 56, 40, 32
+        1, 9,  25, 17, 49, 57, 41, 33,
+        0, 8,  24, 16, 48, 56, 40, 32
     ]
     return digital.constellation_rect(
         constellation_points.flatten(),
@@ -309,4 +309,3 @@ def constellation_64qam():
         2,  # real sector width
         2   # imaginary sector width
     ).base()
- 
