@@ -438,7 +438,7 @@ class tx_lfm_triangle(radar_source):
 
 class tx_lfm_sawtooth(radar_source):
     def __init__(self):
-        radar_source.__init__(self, mod_name="fmcw-sawtooth", chirp_len=1024)
+        radar_source.__init__(self, mod_name="fmcw-sawtooth", chirp_len=64)
         self.source = blocks.vector_source_f(
             np.concatenate((
                 np.linspace(-.5, .5, self.chirp_len/2),
