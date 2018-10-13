@@ -44,7 +44,7 @@ def generate_dataset(channel_type="awgn",
             chan = get_channel(channel_type, snr_db)
             tb.connect(all_tx[tx_key], chan, limit, snk)
             tb.start()
-            while len(snk.data()) != max_data_len:
+            while len(snk.data()) < max_data_len:
                 time.sleep(.01)
             tb.stop()
 
