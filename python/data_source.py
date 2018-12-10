@@ -183,7 +183,7 @@ class fsk_source(gr.hier_block2):
         self.samp_per_sym = samp_per_sym
         self.random_source = \
             blocks.vector_source_b(
-                map(int, np.random.randint(0, 255, int(1e6))), True
+                map(int, np.random.randint(0, 256, int(1e6))), True
             )
 
 
@@ -241,7 +241,7 @@ class tx_2cpfsk(fsk_source):
     def __init__(self):
         fsk_source.__init__(self, mod_name="2cpfsk", samp_per_sym=8)
         self.pack = blocks.packed_to_unpacked_bb(1, gr.GR_MSB_FIRST)
-        self.mod = classify.cpfsk_bc(.5, 1.0, self.samp_per_sym, 1)
+        self.mod = classify.cpfsk_bc(1.0, 1.0, self.samp_per_sym, 1)
         self.connect(self.random_source, self.pack, self.mod, self)
 
 
@@ -395,7 +395,7 @@ class tx_wbfm(analog_source):
 class tx_am_dsb(analog_source):
     def __init__(self):
         analog_source.__init__(self, mod_name="am-dsb", audio_rate=44.1e3)
-        self.interp = filter.fractional_resampler_ff(0.0, self.audio_rate/200e3)
+        self.interp = filter.fractional_resampler_ff(0.0, self.audio_rate*2/200e3)
         self.cnv = blocks.float_to_complex()
         self.add = blocks.add_const_cc(1.0)
         self.mod = blocks.multiply_cc()
