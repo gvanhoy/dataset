@@ -388,7 +388,7 @@ class analog_source(gr.hier_block2):
 class tx_wbfm(analog_source):
     def __init__(self):
         analog_source.__init__(self, mod_name="wbfm", audio_rate=44.1e3)
-        self.interp = filter.fractional_resampler_ff(0.0, .25)
+        self.interp = filter.fractional_resampler_ff(0.0, .1)
         self.mod = analog.wfm_tx(audio_rate=self.audio_rate, quad_rate=220.5e3)
         self.connect(self.random_source, self.interp, self.mod, self)
 
