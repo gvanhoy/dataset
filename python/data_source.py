@@ -239,15 +239,15 @@ class tx_8gfsk(fsk_source):
 
 class tx_2cpfsk(fsk_source):
     def __init__(self):
-        fsk_source.__init__(self, mod_name="2cpfsk", samp_per_sym=8)
+        fsk_source.__init__(self, mod_name="2cpfsk", samp_per_sym=64)
         self.pack = blocks.packed_to_unpacked_bb(1, gr.GR_MSB_FIRST)
-        self.mod = classify.cpfsk_bc(1.0, 1.0, self.samp_per_sym, 1)
+        self.mod = classify.cpfsk_bc(.5, 1.0, self.samp_per_sym, 1)
         self.connect(self.random_source, self.pack, self.mod, self)
 
 
 class tx_4cpfsk(fsk_source):
     def __init__(self):
-        fsk_source.__init__(self, mod_name="4cpfsk", samp_per_sym=8)
+        fsk_source.__init__(self, mod_name="4cpfsk", samp_per_sym=64)
         self.pack = blocks.packed_to_unpacked_bb(2, gr.GR_MSB_FIRST)
         self.mod = classify.cpfsk_bc(.5, 1.0, self.samp_per_sym, 2)
         self.connect(self.random_source, self.pack, self.mod, self)
@@ -255,7 +255,7 @@ class tx_4cpfsk(fsk_source):
 
 class tx_8cpfsk(fsk_source):
     def __init__(self):
-        fsk_source.__init__(self, mod_name="8cpfsk", samp_per_sym=8)
+        fsk_source.__init__(self, mod_name="8cpfsk", samp_per_sym=64)
         self.pack = blocks.packed_to_unpacked_bb(3, gr.GR_MSB_FIRST)
         self.mod = classify.cpfsk_bc(.5, 1.0, self.samp_per_sym, 3)
         self.connect(self.random_source, self.pack, self.mod, self)
@@ -388,8 +388,9 @@ class analog_source(gr.hier_block2):
 class tx_wbfm(analog_source):
     def __init__(self):
         analog_source.__init__(self, mod_name="wbfm", audio_rate=44.1e3)
+        self.interp = filter.fractional_resampler_ff(0.0, self.audio_rate*2/200e3)
         self.mod = analog.wfm_tx(audio_rate=self.audio_rate, quad_rate=220.5e3)
-        self.connect(self.random_source, self.mod, self)
+        self.connect(self.random_source, self.interp, self.mod, self)
 
 
 class tx_am_dsb(analog_source):
